@@ -4,27 +4,20 @@ const refs = {
 };
 
 class Timer {
-  constructor() {
-    this.intervalId = null;
-    this.isActive = false;
-  }
 
   start() {
-    if (this.isActive) {
-      return;
-    }
-    this.isActive = true;
-    // startBtn.classList.toggle('.clicked');
-
     this.intervalId = setInterval(() => {
       const color = this.getRandomHexColor();
       document.body.style.backgroundColor = color;
+      refs.startBtn.setAttribute('disabled', true);
+      refs.stopBtn.removeAttribute('disabled', true);
     }, 1000);
   }
   stop() {
     clearInterval(this.intervalId);
-    this.isActive = false;
     const color = this.getRandomHexColor();
+    refs.startBtn.removeAttribute('disabled', true);
+    refs.stopBtn.setAttribute('disabled', true);
   }
 
   getRandomHexColor() {
@@ -32,7 +25,7 @@ class Timer {
   }
 }
 
-const timer = new Timer({});
+const timer = new Timer();
 
 refs.startBtn.addEventListener('click', timer.start.bind(timer));
 refs.stopBtn.addEventListener('click', timer.stop.bind(timer));
