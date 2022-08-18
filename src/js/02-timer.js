@@ -1,5 +1,7 @@
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
+import Notiflix from 'notiflix';
+import "notiflix/dist/notiflix-3.2.5.min.css";
 
 refs = {
     startBtn: document.querySelector('button[data-start]'),
@@ -22,7 +24,7 @@ const options = {
     minuteIncrement: 1,
     onClose(selectedDates) {
       if (selectedDates[0] < currentDate) {
-        window.alert('Please choose a date in the future');
+        Notiflix.Notify.warning('Please choose a date in the future!');
       }
       choseDate = selectedDates[0];
       refs.startBtn.removeAttribute('disabled', true);
@@ -57,6 +59,12 @@ flatpickr(refs.flatpickrSelect, options);
         const deltaTime = choseDate - currentTime;
         const time = this.convertMs(deltaTime);
         this.onTick(time);
+        refs.startBtn.setAttribute('disabled', true);
+        if (deltaTime <= 1000){
+          clearInterval(this.intervalId);
+          refs.startBtn.removeAttribute('disabled', true);
+          return;
+        }
       }, 1000);
     }
    convertMs(ms) {
@@ -91,9 +99,9 @@ flatpickr(refs.flatpickrSelect, options);
 
   
   function updateClockface({ days, hours, minutes, seconds }) {
-    refs.clockfaceDays.textContent = `${days}`;
-    refs.clockfaceHours.textContent = `${hours}`;
-    refs.clockfaceMinutes.textContent = `${minutes}`;
+    refs.clockfaceDays.textContent = `${days}:`;
+    refs.clockfaceHours.textContent = `${hours}:`;
+    refs.clockfaceMinutes.textContent = `${minutes}:`;
     refs.clockfaceSeconds.textContent = `${seconds}`;
   }
   
