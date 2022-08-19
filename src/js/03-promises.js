@@ -19,8 +19,22 @@ function createPromisesOnSubmit(event) {
 function countPromises(count, delay, step) {
   for (let i = 1; i <= count; i += 1) {
     let time = delay + step * (i - 1);
-    createPromise(i, time);
-  }
+    createPromise(i, time)
+    
+  .then(({ position, delay }) => {
+    Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`, {
+      timeout: 2000,
+    });
+  })
+  .catch(({ position, delay }) => {
+    Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`, {
+      timeout: 2000,
+    });
+  });
+
+}
+
+
 }
 
 function createPromise(position, delay) {
@@ -34,16 +48,7 @@ function createPromise(position, delay) {
       }
     }, delay);
   })
-    .then(({ position, delay }) => {
-      Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`, {
-        timeout: 2000,
-      });
-    })
-    .catch(({ position, delay }) => {
-      Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`, {
-        timeout: 2000,
-      });
-    });
+    
 }
 
 

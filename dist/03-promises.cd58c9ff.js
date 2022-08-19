@@ -517,33 +517,33 @@ function createPromisesOnSubmit(event) {
     const amountNumber = parseInt(amount.value);
     countPromises(amountNumber, delayTime, stepTime);
 }
-function countPromises(count, delay, step) {
+function countPromises(count, delay1, step) {
     for(let i = 1; i <= count; i += 1){
-        let time = delay + step * (i - 1);
-        createPromise(i, time);
+        let time = delay1 + step * (i - 1);
+        createPromise(i, time).then(({ position , delay  })=>{
+            (0, _notiflixDefault.default).Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`, {
+                timeout: 2000
+            });
+        }).catch(({ position , delay  })=>{
+            (0, _notiflixDefault.default).Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`, {
+                timeout: 2000
+            });
+        });
     }
 }
-function createPromise(position1, delay1) {
+function createPromise(position, delay) {
     return new Promise((resolve, reject)=>{
         const shouldResolve = Math.random() > 0.3;
         setInterval(()=>{
             if (shouldResolve) resolve({
-                position: position1,
-                delay: delay1
+                position,
+                delay
             });
             else reject({
-                position: position1,
-                delay: delay1
+                position,
+                delay
             });
-        }, delay1);
-    }).then(({ position , delay  })=>{
-        (0, _notiflixDefault.default).Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`, {
-            timeout: 2000
-        });
-    }).catch(({ position , delay  })=>{
-        (0, _notiflixDefault.default).Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`, {
-            timeout: 2000
-        });
+        }, delay);
     });
 } // refs = {
  // createPromiseBtn: document.querySelector('button'),

@@ -509,11 +509,9 @@ const refs = {
 };
 class Timer {
     start() {
+        this.changeBodyColor();
         this.intervalId = setInterval(()=>{
-            const color = this.getRandomHexColor();
-            document.body.style.backgroundColor = color;
-            refs.startBtn.setAttribute("disabled", true);
-            refs.stopBtn.removeAttribute("disabled", true);
+            this.changeBodyColor();
         }, 1000);
     }
     stop() {
@@ -524,6 +522,12 @@ class Timer {
     }
     getRandomHexColor() {
         return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+    }
+    changeBodyColor() {
+        const color = this.getRandomHexColor();
+        document.body.style.backgroundColor = color;
+        refs.startBtn.setAttribute("disabled", true);
+        refs.stopBtn.removeAttribute("disabled", true);
     }
 }
 const timer = new Timer();
