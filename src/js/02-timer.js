@@ -53,18 +53,10 @@ flatpickr(refs.flatpickrSelect, options);
         return;
       }
       this.isActive = true;
-  
+      this.changeBodyColor()
       this.intervalId = setInterval(() => {
-        const currentTime = new Date();
-        const deltaTime = choseDate - currentTime;
-        const time = this.convertMs(deltaTime);
-        this.onTick(time);
-        refs.startBtn.setAttribute('disabled', true);
-        if (deltaTime <= 1000){
-          clearInterval(this.intervalId);
-          refs.startBtn.removeAttribute('disabled', true);
-          return;
-        }
+         this.changeBodyColor()
+
       }, 1000);
     }
    convertMs(ms) {
@@ -89,6 +81,18 @@ flatpickr(refs.flatpickrSelect, options);
     pad(value) {
       return String(value).padStart(2, "0");
     }
+    changeBodyColor() {
+    const currentTime = new Date();
+    const deltaTime = choseDate - currentTime;
+    const time = this.convertMs(deltaTime);
+    this.onTick(time);
+    refs.startBtn.setAttribute('disabled', true);
+    if (deltaTime <= 1000){
+      clearInterval(this.intervalId);
+      refs.startBtn.removeAttribute('disabled', true);
+      return;
+    }
+  }
   }
   
   const timer = new Timer({
