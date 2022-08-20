@@ -510,7 +510,7 @@ var _flatpickrMinCss = require("flatpickr/dist/flatpickr.min.css");
 var _notiflix = require("notiflix");
 var _notiflixDefault = parcelHelpers.interopDefault(_notiflix);
 var _notiflix325MinCss = require("notiflix/dist/notiflix-3.2.5.min.css");
-refs = {
+const refs = {
     startBtn: document.querySelector("button[data-start]"),
     clockfaceDays: document.querySelector("[data-days]"),
     clockfaceHours: document.querySelector("[data-hours]"),

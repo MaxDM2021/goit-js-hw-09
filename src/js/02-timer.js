@@ -3,7 +3,7 @@ import "flatpickr/dist/flatpickr.min.css";
 import Notiflix from 'notiflix';
 import "notiflix/dist/notiflix-3.2.5.min.css";
 
-refs = {
+const refs = {
     startBtn: document.querySelector('button[data-start]'),
     clockfaceDays: document.querySelector('[data-days]'),
     clockfaceHours: document.querySelector('[data-hours]'),
@@ -11,6 +11,7 @@ refs = {
     clockfaceSeconds: document.querySelector('[data-seconds]'),
     flatpickrSelect: document.querySelector('input[type="text"]'),
   }
+
 
 let choseDate = [];
 const currentDate = new Date();
